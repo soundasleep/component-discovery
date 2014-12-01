@@ -1,0 +1,8 @@
+{
+  "name": "soundasleep/component-discovery",
+  "autoload": {
+    "psr-4": {
+      "ComponentDiscovery\\": "src"
+    }
+  }
+}
