@@ -86,7 +86,7 @@ if ($selected_dirs) {
         foreach ($component as $component_key => $classname) {
           $keys[] = "\"$component_key\"";
           $instances[] = "      case \"$component_key\": return new $classname(\$config);";
-          $all_instances[] = "new $classname(\$config)";
+          $all_instances[] = "\"$component_key\" => new $classname(\$config)";
         }
         $count++;
       }
