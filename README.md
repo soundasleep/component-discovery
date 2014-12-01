@@ -67,8 +67,8 @@ php -f vendor/soundasleep/component-discovery .
 This will generate various files under the `src` directory, that provide
 all of the runtime mappings between discovery types, keys and class instances.
 
-For example, this can generate the following include, based on the components
-you have loaded with Composer in `vendor/`:
+For example, this can generate the following include `inc/components/Currencies.php`,
+based on the components you have loaded with Composer in `vendor/`:
 
 ```php
 <?php
