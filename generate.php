@@ -99,7 +99,7 @@ if ($selected_dirs) {
 
 namespace DiscoveredComponents;
 
-class $full_name extends ComponentDiscovery\\Base {
+class $full_name extends \\ComponentDiscovery\\Base {
   function getKeys() {
     return [$keys];
   }
@@ -108,7 +108,7 @@ class $full_name extends ComponentDiscovery\\Base {
     switch (\$key) {
 $instances
       default:
-        throw new ComponentDiscovery\\DiscoveryException(\"Could not find any $full_name with key '\\\$key'\");
+        throw new \\ComponentDiscovery\\DiscoveryException(\"Could not find any $full_name with key '\\\$key'\");
     }
   }
 
