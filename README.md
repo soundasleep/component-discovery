@@ -95,7 +95,7 @@ class Currencies extends \ComponentDiscovery\Base {
   }
 
   function getAllInstances($config = false) {
-    return [new \Currency\Bitcoin($config), new \Currency\Litecoin($config), new \Currency\Namecoin($config)];
+    return ["btc" => new \Currency\Bitcoin($config), "ltc" => new \Currency\Litecoin($config), "nmc" => new \Currency\Namecoin($config)];
   }
 }
 ```
