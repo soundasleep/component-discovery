@@ -23,6 +23,9 @@ $json += array(
   'depth' => 3
 );
 
+if (!is_array($json['src'])) {
+  $json['src'] = array($json['src']);
+}
 echo "Loaded " . count($json['components']) . " component discovery patterns\n";
 
 function get_directories_to_search($dirs, $pattern) {
@@ -60,7 +63,10 @@ function get_all_directories($root, $max_depth = 3) {
 // now load all of the components
 $all_dirs = get_all_directories($root, $json['depth']);
 echo "Found " . count($all_dirs) . " potential subdirectories\n";
-$selected_dirs = get_directories_to_search($all_dirs, $json['src']);
+$selected_dirs = array();
+foreach ($json['src'] as $pattern) {
+  $selected_dirs = array_merge($selected_dirs, get_directories_to_search($all_dirs, $pattern));
+}
 echo "Filtered to " . count($selected_dirs) . " matching paths\n";
 
 $component_discoverers = array();
