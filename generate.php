@@ -110,11 +110,11 @@ if ($selected_dirs) {
 namespace $namespace;
 
 class $full_name extends \\ComponentDiscovery\\Base {
-  function getKeys() {
+  static function getKeys() {
     return [$keys];
   }
 
-  function getInstance(\$key, \$config = false) {
+  static function getInstance(\$key, \$config = false) {
     switch (\$key) {
 $instances
       default:
@@ -122,7 +122,7 @@ $instances
     }
   }
 
-  function getAllInstances(\$config = false) {
+  static function getAllInstances(\$config = false) {
     return [$all_instances];
   }
 }
@@ -143,7 +143,7 @@ fwrite($fp, "<?php
 namespace $namespace;
 
 class All {
-  function list() {
+  static function list() {
     return array(
 $component_discoverers
     );
