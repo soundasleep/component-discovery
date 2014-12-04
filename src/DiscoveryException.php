@@ -2,6 +2,6 @@
 
 namespace ComponentDiscovery;
 
-class DiscoveryException extends Exception {
-  
+class DiscoveryException extends \Exception {
+
 }
