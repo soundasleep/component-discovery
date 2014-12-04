@@ -61,7 +61,7 @@ Run the generate script, either with your build script or manually, with
 a given root directory:
 
 ```
-php -f vendor/soundasleep/component-discovery .
+php -f vendor/soundasleep/component-discovery/generate.php .
 ```
 
 This will generate various files under the `src` directory, that provide
