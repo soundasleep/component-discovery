@@ -31,7 +31,7 @@ if (!is_array($json['src'])) {
 echo "Loaded " . count($json['components']) . " component discovery patterns\n";
 
 // make target directories as necessary
-make_target_directories(array($json['dest']));
+make_target_directories(array($json['dest'] . "/"));
 
 // now load all of the components
 $all_dirs = get_all_directories($root, $json['depth']);
