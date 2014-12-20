@@ -122,7 +122,7 @@ fwrite($fp, "<?php
 namespace $namespace;
 
 class All {
-  static function list() {
+  static function getAllComponentTypes() {
     return array(
 $component_discoverers
     );
