@@ -4,6 +4,8 @@
  * Generates the necessary includes from the given file root.
  */
 
+require(__DIR__ . "/functions.php");
+
 if (count($argv) < 2) {
   throw new Exception("Needs file root parameter");
 }
@@ -28,37 +30,8 @@ if (!is_array($json['src'])) {
 }
 echo "Loaded " . count($json['components']) . " component discovery patterns\n";
 
-function get_directories_to_search($dirs, $pattern) {
-  // convert pattern into a regular expression
-  $pattern = str_replace("*", "[^/]+", $pattern);
-  $pattern = "#" . $pattern . "$#";
-
-  // find all matching directories
-  $result = array();
-  foreach ($dirs as $dir) {
-    if (preg_match($pattern, $dir)) {
-      $result[] = $dir;
-    }
-  }
-
-  return $result;
-}
-
-function get_all_directories($root, $max_depth = 3) {
-  $result = array();
-  if ($handle = opendir($root)) {
-    while (false !== ($entry = readdir($handle))) {
-      if ($entry != "." && $entry != ".." && is_dir($root . "/" . $entry)) {
-          $result[] = $root . "/" . $entry;
-          if ($max_depth > 1) {
-            $result = array_merge($result, get_all_directories($root . "/" . $entry, $max_depth - 1));
-          }
-        }
-    }
-    closedir($handle);
-  }
-  return $result;
-}
+// make target directories as necessary
+make_target_directories(array($json['dest']));
 
 // now load all of the components
 $all_dirs = get_all_directories($root, $json['depth']);
