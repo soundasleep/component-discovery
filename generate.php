@@ -90,7 +90,7 @@ namespace $namespace;
 
 class $full_name extends \\ComponentDiscovery\\Base {
   static function getKeys() {
-    return [$keys];
+    return array($keys);
   }
 
   static function getInstance(\$key, \$config = false) {
@@ -102,7 +102,7 @@ $instances
   }
 
   static function getAllInstances(\$config = false) {
-    return [$all_instances];
+    return array($all_instances);
   }
 }
 ");
