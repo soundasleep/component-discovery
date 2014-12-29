@@ -136,16 +136,20 @@ You can also create more complex definitions for each type of component to disco
       },
       "lists": {
         "getAbbrs": "getAbbr"
+      },
+      "instances": {
+        "getBalanceCurrencies": "\\Openclerk\\Currencies\\BalanceableCurrency"
       }
     }
   }
 }
 ```
 
-* `instanceof`: checks that each class found in each component is an instance of the given class or interface.
-* `maps`: creates functions which returns a key based on the return value of this method on each class.
-* `masks`: creates functions which returns a list of all classes that return `true` with this method.
-* `lists`: creates functions which returns a list of return values of this method on each class.
+* `instanceof`: checks that each class found in each component is an instance of the given class or interface
+* `maps`: creates functions which return a key based on the return value of this method on each class
+* `masks`: creates functions which return a list of all keys which classes return `true` with this method
+* `lists`: creates functions which return a list of return values of this method on each class
+* `instances`: creates functions which return a list of all keys which classes are instances of the given class or interface
 
 For example:
 
@@ -172,6 +176,10 @@ For example:
 
   static function getAbbrs() {
     return array("btc" => "BTC");
+  }
+
+  static function getBalanceCurrencies() {
+    return array("btc");
   }
 ```
 

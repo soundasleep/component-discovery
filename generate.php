@@ -63,6 +63,7 @@ if ($selected_dirs) {
       "maps" => array(),
       "masks" => array(),
       "lists" => array(),
+      "instances" => array(),
     );
 
     $filename = $component_value["file"];
@@ -80,6 +81,7 @@ if ($selected_dirs) {
     $maps = array();
     $masks = array();
     $lists = array();
+    $mask_instances = array();
 
     $count = 0;
     foreach ($selected_dirs as $dir) {
@@ -127,6 +129,15 @@ if ($selected_dirs) {
               }
               if ($temp = $object->$method()) {
                 $lists[$key][] = "\"$component_key\" => " . (is_numeric($temp) ? "$temp" : "\"$temp\"");
+              }
+            }
+
+            foreach ($component_value["instances"] as $key => $instanceof_name) {
+              if (!isset($mask_instances[$key])) {
+                $mask_instances[$key] = array();
+              }
+              if (is_a($object, $instanceof_name)) {
+                $mask_instances[$key][] = "\"$component_key\"";
               }
             }
           }
@@ -191,6 +202,21 @@ if ($selected_dirs) {
 
     $output_lists = implode($output_lists, "");
 
+    $output_mask_instances = array();
+    foreach ($mask_instances as $key => $values) {
+      $method_name = $component_value["instances"][$key];
+      $output_mask_instances[] = "
+  /**
+   * @return an array of all keys which classes are instances of $method_name
+   */
+  static function $key() {
+    return array(" . implode(", ", $values) . ");
+  }
+";
+    }
+
+    $output_mask_instances = implode($output_mask_instances, "");
+
     $fp = fopen($json['dest'] . "/$full_name.php", "w");
     if (!$fp) {
       throw new Exception("Could not open destination file '" . $json['dest'] . "/$key.php' for writing");
@@ -238,7 +264,7 @@ $instances
   static function getAllInstances(\$config = false) {
     return array($all_instances);
   }
-$output_maps$output_masks$output_lists
+$output_maps$output_masks$output_lists$output_mask_instances
 }
 ");
     fclose($fp);
