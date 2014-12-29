@@ -248,6 +248,13 @@ class $full_name extends \\ComponentDiscovery\\Base {
   }
 
   /**
+   * @return true if this key is a valid key according to {@link #getKeys()}, false otherwise
+   */
+  static function hasKey(\$key) {
+    return in_array(\$key, self::getKeys());
+  }
+
+  /**
    * @return the corresponding runtime instance object for the given string \$key
    */
   static function getInstance(\$key, \$config = false) {
