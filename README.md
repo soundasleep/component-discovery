@@ -18,13 +18,8 @@ and run `composer update` to install it into your project:
 ```json
 {
   "require": {
-    "soundasleep/component-discovery": "dev-master",
-    // your other components will go here
-  },
-  "repositories": [{
-    "type": "vcs",
-    "url": "https://github.com/soundasleep/component-discovery"
-  }]
+    "soundasleep/component-discovery": "dev-master"
+  }
 }
 ```
 
@@ -182,9 +177,8 @@ For example:
 
 ## TODOs
 
-1. Actually publish on Packagist
-2. More documentation, especially default `discovery.json` parameters
-3. Tests
-4. Example projects using _component-discovery_
-5. Create `grunt` task `grunt-php-component-discovery` to wrap the manual PHP command
-6. Release 0.1 version
+1. More documentation, especially default `discovery.json` parameters
+2. Tests
+3. Example projects using _component-discovery_
+4. Create `grunt` task `grunt-php-component-discovery` to wrap the manual PHP command
+5. Release 0.1 version
