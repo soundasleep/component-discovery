@@ -155,7 +155,6 @@ You can also create more complex definitions for each type of component to disco
 For example:
 
 ```php
-  // maps
   static function getKeyForAbbr($input) {
     switch ($input) {
       case "BTC": return "btc";
@@ -164,7 +163,6 @@ For example:
     }
   }
 
-  // masks
   static function getCryptocurrencies() {
     return array("btc");
   }
@@ -177,9 +175,8 @@ For example:
     return array();
   }
 
-  // lists
   static function getAbbrs() {
-    return array("BTC");
+    return array("btc" => "BTC");
   }
 ```
 
