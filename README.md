@@ -68,7 +68,8 @@ This will generate various files under the `src` directory, that provide
 all of the runtime mappings between discovery types, keys and class instances.
 
 For example, this can generate the following include `inc/components/Currencies.php`,
-based on the components you have loaded with Composer in `vendor/`:
+based on the components you have loaded with Composer in `vendor/`,
+listing all of the _Currency_ components:
 
 ```php
 <?php
@@ -98,6 +99,7 @@ class Currencies extends \ComponentDiscovery\Base {
     return ["btc" => new \Currency\Bitcoin($config), "ltc" => new \Currency\Litecoin($config), "nmc" => new \Currency\Namecoin($config)];
   }
 }
+?>
 ```
 
 ## Using
@@ -117,6 +119,68 @@ require("inc/components/Currencies.php");
 $discovery = new DiscoveredComponents/Currencies();
 $currency = $discovery->getInstance("btc");
 echo "btc = " . $currency->getName();
+```
+
+## Creating more complex mappings
+
+You can also create more complex definitions for each type of component to discover:
+
+```json
+{
+  "components": {
+    "currencies": {
+      "file": "currencies.json",
+      "instanceof": "\\Openclerk\\Currencies\\Currency",
+      "maps": {
+        "getKeyForAbbr": "getAbbr"
+      },
+      "masks": {
+        "getCryptocurrencies": "isCryptocurrency",
+        "getFiatCurrencies": "isFiat",
+        "getCommodityCurrencies": "isCommodity"
+      },
+      "lists": {
+        "getAbbrs": "getAbbr"
+      }
+    }
+  }
+}
+```
+
+* `instanceof`: checks that each class found in each component is an instance of the given class or interface.
+* `maps`: creates functions which returns a key based on the return value of this method on each class.
+* `masks`: creates functions which returns a list of all classes that return `true` with this method.
+* `maps`: creates funcitons which returns a list of return values of this method on each class.
+
+For example:
+
+```php
+  // maps
+  static function getKeyForAbbr($input) {
+    switch ($input) {
+      case "BTC": return "btc";
+      default:
+        throw new \ComponentDiscovery\DiscoveryException("Could not find any matching getKeyForAbbr for '$input'");
+    }
+  }
+
+  // masks
+  static function getCryptocurrencies() {
+    return array("btc");
+  }
+
+  static function getFiatCurrencies() {
+    return array();
+  }
+
+  static function getCommodityCurrencies() {
+    return array();
+  }
+
+  // lists
+  static function getAbbrs() {
+    return array("BTC");
+  }
 ```
 
 ## TODOs
