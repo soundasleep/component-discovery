@@ -150,7 +150,7 @@ You can also create more complex definitions for each type of component to disco
 * `instanceof`: checks that each class found in each component is an instance of the given class or interface.
 * `maps`: creates functions which returns a key based on the return value of this method on each class.
 * `masks`: creates functions which returns a list of all classes that return `true` with this method.
-* `maps`: creates funcitons which returns a list of return values of this method on each class.
+* `lists`: creates functions which returns a list of return values of this method on each class.
 
 For example:
 
