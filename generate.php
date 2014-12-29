@@ -16,6 +16,9 @@ if (!file_exists($root . "/discovery.json")) {
 }
 
 $json = json_decode(file_get_contents($root . "/discovery.json"), true /* assoc */);
+if (!$json) {
+  throw new Exception("Could not load JSON from '$root/discovery.json'");
+}
 
 // add default parameters
 $json += array(
