@@ -150,7 +150,7 @@ if ($selected_dirs) {
       }
     }
 
-    echo "Found $count '$key' components\n";
+    echo "Found $count '$full_name' components\n";
     $keys = implode(", ", $keys);
     $instances = implode("\n", $instances);
     $all_instances = implode(", ", $all_instances);
