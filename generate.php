@@ -94,6 +94,11 @@ if ($selected_dirs) {
           throw new Exception("Could not load JSON from '$dir/$filename'");
         }
         foreach ($component as $component_key => $classname) {
+          // we can assume class names are unique
+          if (is_numeric($component_key)) {
+            $component_key = $classname;
+          }
+
           $keys[] = "\"$component_key\"";
           $instances[] = "      case \"$component_key\": return new $classname(\$config);";
           $all_instances[] = "\"$component_key\" => new $classname(\$config)";

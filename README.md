@@ -50,6 +50,16 @@ _component-discovery_ will look in all the `src` folders for the definition file
 Note that you need to escape out the namespace characters in the class names.
 You can now call _component-discovery_ in your build script or manually.
 
+You can also define your component file as an array, rather than a dictionary, and
+values of this array will also be used as the keys for each value.
+
+```json
+[
+  "\\Currency\\Bitcoin",
+  "\\Currency\\Litecoin"
+]
+```
+
 ## Building
 
 Run the generate script, either with your build script or manually, with
