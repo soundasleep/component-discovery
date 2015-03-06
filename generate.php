@@ -26,6 +26,7 @@ $json += array(
   'src' => 'vendor/*/*',
   'dest' => 'generated/components',
   'depth' => 3,
+  'composer_depth' => 3,
   'autoload' => 'vendor/autoload.php'
 );
 
@@ -81,6 +82,7 @@ if ($selected_dirs) {
     $keys = array();
     $instances = array();
     $all_instances = array();
+    $packages = array();
     $maps = array();
     $masks = array();
     $lists = array();
@@ -93,6 +95,18 @@ if ($selected_dirs) {
         if (!$component) {
           throw new Exception("Could not load JSON from '$dir/$filename'");
         }
+
+        // try and find a composer.json for this component
+        $path = $dir;
+        $composer_json = false;
+        for ($i = 1; $i < $json['composer_depth']; $i++) {
+          if (file_exists($path . "/composer.json")) {
+            $composer_json = json_decode(file_get_contents($path . "/composer.json"), true /* assoc */);
+            break;
+          }
+          $path .= "/..";
+        }
+
         foreach ($component as $component_key => $classname) {
           // we can assume class names are unique
           if (is_numeric($component_key)) {
@@ -102,6 +116,8 @@ if ($selected_dirs) {
           $keys[] = "\"$component_key\"";
           $instances[] = "      case \"$component_key\": return new $classname(\$config);";
           $all_instances[] = "\"$component_key\" => new $classname(\$config)";
+          if ($composer_json)
+          $packages[] = "      case \"$component_key\": return \"" . $composer_json['name'] . "\";";
 
           if ($check_instance_of || $component_value["maps"] || $component_value["lists"]) {
             // instantiate object (using the autoloader as necessary)
@@ -159,6 +175,7 @@ if ($selected_dirs) {
     $keys = implode(", ", $keys);
     $instances = implode("\n", $instances);
     $all_instances = implode(", ", $all_instances);
+    $packages = implode("\n", $packages);
 
     $output_maps = array();
     foreach ($maps as $key => $values) {
@@ -270,6 +287,17 @@ class $full_name extends \\ComponentDiscovery\\Base {
 $instances
       default:
         throw new \\ComponentDiscovery\\DiscoveryException(\"Could not find any $full_name with key '\$key'\");
+    }
+  }
+
+  /**
+   * @return the corresponsing composer package name that defined this object \$key,
+   *     or {@code null} if none is defined or none could be found.
+   */
+  static function getDefiningPackage(\$key) {
+    switch (\$key) {
+$packages
+      default: return null;
     }
   }
 
