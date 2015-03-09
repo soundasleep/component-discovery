@@ -88,6 +88,20 @@ if ($selected_dirs) {
     $lists = array();
     $mask_instances = array();
 
+    // initialise maps so we don't generate missing methods if there are no results
+    foreach ($component_value['maps'] as $key => $method) {
+      $maps[$key] = array();
+    }
+    foreach ($component_value['masks'] as $key => $method) {
+      $masks[$key] = array();
+    }
+    foreach ($component_value['lists'] as $key => $method) {
+      $lists[$key] = array();
+    }
+    foreach ($component_value['instances'] as $key => $method) {
+      $mask_instances[$key] = array();
+    }
+
     $count = 0;
     foreach ($selected_dirs as $dir) {
       if (file_exists($dir . "/" . $filename)) {
@@ -116,8 +130,9 @@ if ($selected_dirs) {
           $keys[] = "\"$component_key\"";
           $instances[] = "      case \"$component_key\": return new $classname(\$config);";
           $all_instances[] = "\"$component_key\" => new $classname(\$config)";
-          if ($composer_json)
-          $packages[] = "      case \"$component_key\": return \"" . $composer_json['name'] . "\";";
+          if ($composer_json) {
+            $packages[] = "      case \"$component_key\": return \"" . $composer_json['name'] . "\";";
+          }
 
           if ($check_instance_of || $component_value["maps"] || $component_value["lists"]) {
             // instantiate object (using the autoloader as necessary)
@@ -132,34 +147,22 @@ if ($selected_dirs) {
 
             // do we want to make any lists or maps?
             foreach ($component_value["maps"] as $key => $method) {
-              if (!isset($maps[$key])) {
-                $maps[$key] = array();
-              }
               $maps[$key][] = "      case \"" . $object->$method() . "\": return \"$component_key\";";
             }
 
             foreach ($component_value["masks"] as $key => $method) {
-              if (!isset($masks[$key])) {
-                $masks[$key] = array();
-              }
               if ($object->$method()) {
                 $masks[$key][] = "\"$component_key\"";
               }
             }
 
             foreach ($component_value["lists"] as $key => $method) {
-              if (!isset($lists[$key])) {
-                $lists[$key] = array();
-              }
               if ($temp = $object->$method()) {
                 $lists[$key][] = "\"$component_key\" => " . (is_numeric($temp) ? "$temp" : "\"$temp\"");
               }
             }
 
             foreach ($component_value["instances"] as $key => $instanceof_name) {
-              if (!isset($mask_instances[$key])) {
-                $mask_instances[$key] = array();
-              }
               if (is_a($object, $instanceof_name)) {
                 $mask_instances[$key][] = "\"$component_key\"";
               }
