@@ -177,7 +177,6 @@ if ($selected_dirs) {
     echo "Found $count '$full_name' components\n";
     $keys = implode(", ", $keys);
     $instances = implode("\n", $instances);
-    $all_instances = implode(", ", $all_instances);
     $packages = implode("\n", $packages);
 
     $output_maps = array();
@@ -208,7 +207,9 @@ if ($selected_dirs) {
    * @return an array of all classes that return `true` with their {@code $method_name()} method
    */
   static function $key() {
-    return array(" . implode(", ", $values) . ");
+    return array(
+      " . implode(",\n      ", $values) . "
+    );
   }
 ";
     }
@@ -223,7 +224,9 @@ if ($selected_dirs) {
    * @return an array of all {@code $method_name()} values across all components, associated with their unique key
    */
   static function $key() {
-    return array(" . implode(", ", $values) . ");
+    return array(
+      " . implode(",\n      ", $values) . "
+    );
   }
 ";
     }
@@ -238,7 +241,9 @@ if ($selected_dirs) {
    * @return an array of all keys which classes are instances of $method_name
    */
   static function $key() {
-    return array(" . implode(", ", $values) . ");
+    return array(
+      " . implode(",\n      ", $values) . "
+    );
   }
 ";
     }
@@ -308,7 +313,9 @@ $packages
    * @return an array of all $full_name instances, each with their unique string \$key
    */
   static function getAllInstances(\$config = false) {
-    return array($all_instances);
+    return array(
+      " . implode(",\n      ", $all_instances) . "
+    );
   }
 $output_maps$output_masks$output_lists$output_mask_instances
 }
