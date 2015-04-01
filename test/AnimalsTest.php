@@ -19,14 +19,14 @@ class AnimalsTest extends AbstractComponentDiscoveryTest {
   function testAnimalKeys() {
     $animals = $this->loadClass("Animals");
     $keys = $animals->getKeys();
-    $this->assertEquals(array("\\Dog"), $keys);
+    $this->assertEquals(array("Dog"), $keys);
   }
 
   function testAnimalHasKeys() {
     $animals = $this->loadClass("Animals");
-    $this->assertTrue($animals->hasKey("\\Dog"));
-    $this->assertFalse($animals->hasKey("\\Cat"));
-    $this->assertFalse($animals->hasKey("\\dog"));
+    $this->assertTrue($animals->hasKey("Dog"));
+    $this->assertFalse($animals->hasKey("Cat"));
+    $this->assertFalse($animals->hasKey("dog"));
   }
 
   function testColourKeys() {
