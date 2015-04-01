@@ -1,0 +1,18 @@
+{
+  "components": {
+    "animals": {
+      "file": "animals.json",
+      "instanceof": "\\ComponentDiscovery\\Test\\Animal",
+      "maps": {
+        "getPlural": "getPlural"
+      },
+      "masks": {
+        "getBirds": "isBird"
+      }
+    },
+    "colours": "colours.json"
+  },
+  "src": ["*"],
+  "dest": "generated",
+  "namespace": "MapsTest"
+}
