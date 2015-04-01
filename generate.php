@@ -11,13 +11,18 @@ if (count($argv) < 2) {
 }
 
 $root = $argv[1];
-if (!file_exists($root . "/discovery.json")) {
-  throw new Exception("No discovery.json found in '$root'");
+$discovery = $root . "/discovery.json";
+if (isset($argv[2])) {
+  $discovery = $argv[2];
 }
 
-$json = json_decode(file_get_contents($root . "/discovery.json"), true /* assoc */);
+if (!file_exists($discovery)) {
+  throw new Exception("No $discovery found");
+}
+
+$json = json_decode(file_get_contents($discovery), true /* assoc */);
 if (!$json) {
-  throw new Exception("Could not load JSON from '$root/discovery.json'");
+  throw new Exception("Could not load JSON from $discovery");
 }
 
 // add default parameters
@@ -53,6 +58,7 @@ foreach ($json['src'] as $pattern) {
 echo "Filtered to " . count($selected_dirs) . " matching paths\n";
 
 $component_discoverers = array();
+$namespace = $json['namespace'];
 
 if ($selected_dirs) {
   foreach ($json['components'] as $key => $component_value) {
@@ -76,7 +82,6 @@ if ($selected_dirs) {
 
     echo "Processing '$key' components...\n";
     $full_name = ucfirst($key);
-    $namespace = $json['namespace'];
     $component_discoverers[] = "      \"$key\" => new $namespace\\$full_name()";
 
     $keys = array();

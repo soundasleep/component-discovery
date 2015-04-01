@@ -1,0 +1,9 @@
+{
+  "components": {
+    "animals": "animals.json",
+    "colours": "colours.json"
+  },
+  "src": [],
+  "dest": "generated",
+  "namespace": "EmptyTest"
+}

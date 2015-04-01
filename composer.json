@@ -3,7 +3,8 @@
   "description": "PHP Component Discovery for Composer",
   "autoload": {
     "psr-4": {
-      "ComponentDiscovery\\": "src"
+      "ComponentDiscovery\\": "src",
+      "ComponentDiscovery\\Test\\": "test"
     }
   },
   "require-dev": {
