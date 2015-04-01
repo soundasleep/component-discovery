@@ -2,7 +2,7 @@
 
 namespace ComponentDiscovery\Test;
 
-require(__DIR__ . "/simple/vendor/autoload.php");
+require(__DIR__ . "/simple/autoload.php");
 
 use \ComponentDiscovery\DiscoveryException;
 
