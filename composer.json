@@ -8,7 +8,6 @@
     }
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4",
-    "soundasleep/component-tests": "~0.1"
+    "soundasleep/component-tests": "dev-master"
   }
 }
