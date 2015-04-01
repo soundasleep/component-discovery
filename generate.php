@@ -179,6 +179,11 @@ if ($selected_dirs) {
       }
     }
 
+    // now sort
+    sort($keys);
+    sort($instances);
+    sort($packages);
+
     echo "Found $count '$full_name' components\n";
     $keys = implode(", ", $keys);
     $instances = implode("\n", $instances);
