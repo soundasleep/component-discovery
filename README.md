@@ -196,7 +196,6 @@ For example:
 ## TODOs
 
 1. More documentation, especially default `discovery.json` parameters
-2. Tests
 3. Example projects using _component-discovery_
 4. Create `grunt` task `grunt-php-component-discovery` to wrap the manual PHP command
 5. Release 0.1 version
